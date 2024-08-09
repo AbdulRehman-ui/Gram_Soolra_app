@@ -16,20 +16,20 @@ class SharedPrefManager(context: Context) {
         preference.edit().clear().apply()
     }
 
-    var KEY_ACCESS_TOKEN: String
-        set(value) {
-            preference.edit().putString("KEY_ACCESS_TOKEN", value).apply()
-        }
-        get() {
-            return preference.getString("KEY_ACCESS_TOKEN", "")!!
-        }
-
     var USER_ID: String
         set(value) {
             preference.edit().putString("USER_ID", value).apply()
         }
         get() {
             return preference.getString("USER_ID", "")!!
+        }
+
+    var SALT: String
+        set(value) {
+            preference.edit().putString("SALT", value).apply()
+        }
+        get() {
+            return preference.getString("SALT", "")!!
         }
 
 }

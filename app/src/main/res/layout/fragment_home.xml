@@ -7,6 +7,7 @@
     android:background="@color/white"
     tools:context=".fragments.HomeFragment">
 
+
     <LinearLayout
         android:id="@+id/headerHome"
         android:layout_width="match_parent"
@@ -22,6 +23,7 @@
         >
 
         <ImageView
+            android:id="@+id/backButton"
             android:layout_width="0dp"
             android:layout_height="@dimen/_20sdp"
             android:layout_weight="1"
@@ -32,7 +34,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="6"
-            android:text="Gramsootra"
+            android:text="@string/gramsootra"
             android:textSize="@dimen/_14ssp"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -103,6 +105,7 @@
         />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/productRecyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -114,5 +117,31 @@
         android:layout_marginHorizontal="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_10sdp"
         />
+
+
+    <ProgressBar
+        android:id="@+id/productProgressBar"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:indeterminate="true"
+        android:visibility="gone"
+        android:indeterminateTint="@color/primary_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvNoProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_products_found"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14ssp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchBarLine" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

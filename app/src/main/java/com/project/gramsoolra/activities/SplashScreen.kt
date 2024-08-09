@@ -20,9 +20,11 @@ class SplashScreen : AppCompatActivity() {
         setContentView(binding.root)
 
         val appPreference = SharedPrefManager(this)
-        val authToken = appPreference.KEY_ACCESS_TOKEN
+        val userId = appPreference.USER_ID
 
-        if (authToken.isEmpty()) {
+        appPreference.SALT = "Gramsootra@TT)(*&^!@2022"
+
+        if (userId.isEmpty()) {
             Handler().postDelayed({
                 startActivity(Intent(this@SplashScreen, LoginScreen::class.java))
                 finish()

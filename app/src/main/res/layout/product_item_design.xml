@@ -7,8 +7,8 @@
     app:cardCornerRadius="@dimen/_20sdp"
     android:elevation="@dimen/_4sdp"
     android:id="@+id/productItem"
-    android:layout_marginBottom="@dimen/_6sdp"
-    android:layout_marginEnd="@dimen/_5sdp"
+    android:layout_marginBottom="@dimen/_8sdp"
+    android:layout_marginEnd="@dimen/_7sdp"
     >
 
     <LinearLayout
@@ -21,7 +21,7 @@
             android:id="@+id/productImage"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_90sdp"
-            android:src="@drawable/app_logo"
+            android:background="@drawable/app_logo"
             android:scaleType="fitXY"
             />
 
@@ -29,7 +29,7 @@
             android:id="@+id/productName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello"
+            android:textColor="@color/black"
             android:textSize="@dimen/_12ssp"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_5sdp"
@@ -41,7 +41,7 @@
             android:id="@+id/productPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="$500/m"
+            android:textColor="@color/black"
             android:textSize="@dimen/_16ssp"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_5sdp"
@@ -68,9 +68,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="2"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_9ssp"
                 android:layout_marginStart="@dimen/_2sdp"
-                android:text="aljfdlasdjlsadjfslkdfjslkdfjslkdfjslkdjflsdjfasldjkfasdlkfjasldfjaldskfj"
                 />
 
         </LinearLayout>

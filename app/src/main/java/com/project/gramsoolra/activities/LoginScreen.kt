@@ -15,6 +15,7 @@ import com.project.gramsoolra.api.ApiClient
 import com.project.gramsoolra.common.SharedPrefManager
 import com.project.gramsoolra.common.Status
 import com.project.gramsoolra.databinding.ActivityLoginScreenBinding
+import com.project.gramsoolra.di.Utils
 import com.project.gramsoolra.repositories.MainRepository
 import com.project.gramsoolra.request.LoginRequest
 import com.project.gramsoolra.viewModels.ApiViewModel
@@ -80,11 +81,12 @@ class LoginScreen : AppCompatActivity() {
         userMobile = binding.etMobile.text.toString().trim()
         userPassword = binding.etPassword.text.toString().trim()
 
-        val salt = "Gramsootra@TT)(*&^!@2022"
+        val appPreference = SharedPrefManager(this)
+        val salt = appPreference.SALT
 
         val authTokenString = salt+userMobile+userPassword
 
-        authToken = md5Hash(authTokenString)
+        authToken = Utils.md5Hash(authTokenString)
 
         val loginRequest = LoginRequest()
 
@@ -97,12 +99,6 @@ class LoginScreen : AppCompatActivity() {
     }
 
 
-    fun md5Hash(input: String): String {
-        val md = MessageDigest.getInstance("MD5")
-        val digest = md.digest(input.toByteArray())
-        return digest.joinToString("") { "%02x".format(it) }
-    }
-
     private fun loginAPI() {
 
         apiViewModel.res_login.observe(this, Observer {
@@ -114,7 +110,6 @@ class LoginScreen : AppCompatActivity() {
 
                         val appPreference = SharedPrefManager(this)
                         val userId = it.data?.parameters?.id.toString()
-                        appPreference.KEY_ACCESS_TOKEN = authToken
                         appPreference.USER_ID = userId
 
                         Toast.makeText(this@LoginScreen, ""+it.data?.message.toString(), Toast.LENGTH_SHORT).show()

@@ -2,6 +2,7 @@ package com.project.gramsoolra.api
 
 import com.project.gramsoolra.request.LoginRequest
 import com.project.gramsoolra.request.ProductListRequest
+import com.project.gramsoolra.response.CartListResponse
 import com.project.gramsoolra.response.LoginResponse
 import com.project.gramsoolra.response.ProductListResponse
 import retrofit2.Response
@@ -14,4 +15,7 @@ interface ApiService {
 
     @POST("stock/view-products")
     suspend fun productList(@Body productListRequest: ProductListRequest): Response<ProductListResponse>
+
+    @POST("stock/view-cart")
+    suspend fun cartList(@Body productListRequest: ProductListRequest): Response<CartListResponse>
 }

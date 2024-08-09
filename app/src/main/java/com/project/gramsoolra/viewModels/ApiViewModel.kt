@@ -9,6 +9,7 @@ import com.project.gramsoolra.common.SharedPrefManager
 import com.project.gramsoolra.repositories.MainRepository
 import com.project.gramsoolra.request.LoginRequest
 import com.project.gramsoolra.request.ProductListRequest
+import com.project.gramsoolra.response.CartListResponse
 import com.project.gramsoolra.response.LoginResponse
 import com.project.gramsoolra.response.ProductListResponse
 import kotlinx.coroutines.launch
@@ -35,6 +36,16 @@ class ApiViewModel (
         viewModelScope.launch {
             _res_product_list.postValue(Resource.loading(null))
             _res_product_list.postValue(mainRepository.productList(productListRequest))
+        }
+    }
+
+    private val _res_cart_list = SingleLiveEvent<Resource<CartListResponse>>()
+    val res_cart_list: LiveData<Resource<CartListResponse>> get() = _res_cart_list
+
+    fun cartList(productListRequest: ProductListRequest) {
+        viewModelScope.launch {
+            _res_cart_list.postValue(Resource.loading(null))
+            _res_cart_list.postValue(mainRepository.cartList(productListRequest))
         }
     }
 
