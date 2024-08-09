@@ -1,4 +1,4 @@
-package com.project.gramsoolra.activities.fragments
+package com.project.gramsoolra.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

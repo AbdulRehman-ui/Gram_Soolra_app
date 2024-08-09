@@ -1,4 +1,4 @@
-package com.project.gramsoolra.activities.fragments
+package com.project.gramsoolra.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,13 +8,14 @@ import android.view.ViewGroup
 import com.project.gramsoolra.R
 
 
-class MenuFragment : Fragment() {
+class CartFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_menu, container, false)
+        return inflater.inflate(R.layout.fragment_cart, container, false)
     }
+
 
 }

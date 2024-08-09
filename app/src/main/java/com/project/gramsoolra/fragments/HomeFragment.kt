@@ -1,4 +1,4 @@
-package com.project.gramsoolra.activities.fragments
+package com.project.gramsoolra.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,14 +8,13 @@ import android.view.ViewGroup
 import com.project.gramsoolra.R
 
 
-class ProfileFragment : Fragment() {
-
+class HomeFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
 }

@@ -7,27 +7,27 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.project.gramsoolra.activities.fragments.HomeFragment"
+        android:name="com.project.gramsoolra.fragments.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/nav_search"
-        android:name="com.project.gramsoolra.activities.fragments.SearchFragment"
+        android:name="com.project.gramsoolra.fragments.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/nav_cart"
-        android:name="com.project.gramsoolra.activities.fragments.CartFragment"
+        android:name="com.project.gramsoolra.fragments.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart" />
     <fragment
         android:id="@+id/nav_profile"
-        android:name="com.project.gramsoolra.activities.fragments.ProfileFragment"
+        android:name="com.project.gramsoolra.fragments.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/nav_menu"
-        android:name="com.project.gramsoolra.activities.fragments.MenuFragment"
+        android:name="com.project.gramsoolra.fragments.MenuFragment"
         android:label="fragment_menu"
         tools:layout="@layout/fragment_menu" />
 </navigation>
