@@ -40,25 +40,11 @@ class HomeFragment : Fragment() {
         ViewModelFactory(MainRepository(ApiClient.apiService))
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            handleBackPress()
-        }
-    }
-
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-
-        binding.backButton.setOnClickListener {
-            handleBackPress()
-        }
 
         sendAPIRequest(searchString)
 
@@ -164,17 +150,4 @@ class HomeFragment : Fragment() {
             }
         }
     }
-
-
-    private fun handleBackPress() {
-        if (true) {
-            val intent = Intent(Intent.ACTION_MAIN)
-            intent.addCategory(Intent.CATEGORY_HOME)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(intent)
-        } else {
-            requireActivity().supportFragmentManager.popBackStack()
-        }
-    }
-
 }

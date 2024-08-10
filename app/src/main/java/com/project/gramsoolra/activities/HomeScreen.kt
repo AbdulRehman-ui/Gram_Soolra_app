@@ -1,18 +1,15 @@
 package com.project.gramsoolra.activities
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.annotation.OptIn
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.badge.BadgeDrawable
+import com.google.android.material.badge.ExperimentalBadgeUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.project.gramsoolra.R
 import com.project.gramsoolra.api.ApiClient
@@ -25,9 +22,12 @@ import com.project.gramsoolra.request.ProductListRequest
 import com.project.gramsoolra.viewModels.ApiViewModel
 import com.project.gramsoolra.viewModels.ViewModelFactory
 
+
 class HomeScreen : AppCompatActivity() {
 
     private lateinit var binding : ActivityHomeScreenBinding
+
+    private var totalCartItems = 0
 
     private val apiViewModel : ApiViewModel by viewModels() {
         ViewModelFactory(MainRepository(ApiClient.apiService))
@@ -40,18 +40,71 @@ class HomeScreen : AppCompatActivity() {
 
 
         cartAPIRequest()
-        bottomNavData()
+        bottomNavData(totalCartItems)
 
+        binding.backButton.setOnClickListener {
+            onBackPressed()
+        }
 
     }
 
-    private fun bottomNavData() {
+    private fun cartAPIRequest() {
+        val appPreference = SharedPrefManager(this@HomeScreen)
+
+        val userId = appPreference.USER_ID
+        val salt = appPreference.SALT
+
+        val authToken = Utils.md5Hash(salt + userId)
+
+        val cartListRequest = ProductListRequest()
+
+        cartListRequest.userId = userId
+        cartListRequest.authToken = authToken
+
+        apiViewModel.cartList(cartListRequest)
+        getCartAPI()
+
+    }
+
+    @OptIn(ExperimentalBadgeUtils::class)
+    private fun getCartAPI() {
+        apiViewModel.res_cart_list.observe(this) {
+
+            when(it.status) {
+
+                Status.SUCCESS -> {
+
+                    totalCartItems = it.data?.parameters?.data?.size!!
+                    binding.totalCartItems.text = totalCartItems.toString()
+
+                    bottomNavData(totalCartItems)
+                }
+
+                Status.LOADING -> {
+
+                }
+
+                Status.ERROR -> {
+                }
+            }
+        }
+    }
+
+    private fun bottomNavData(cartItemCount : Int) {
         val navView: BottomNavigationView = binding.navView
 
         val tvHeader = binding.tvHeader
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         navView.setupWithNavController(navController)
+
+        val badge: BadgeDrawable = binding.navView.getOrCreateBadge(R.id.nav_cart)
+        badge.isVisible = true
+        badge.number = cartItemCount
+
+        badge.backgroundColor = ContextCompat.getColor(this, R.color.primary_color)
+        badge.badgeTextColor = ContextCompat.getColor(this, R.color.white)
+        badge.maxCharacterCount = 2
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
@@ -77,45 +130,20 @@ class HomeScreen : AppCompatActivity() {
 
     }
 
-    private fun cartAPIRequest() {
-        val appPreference = SharedPrefManager(this@HomeScreen)
+    override fun onBackPressed() {
 
-        val userId = appPreference.USER_ID
-        val salt = appPreference.SALT
-
-        val authToken = Utils.md5Hash(salt + userId)
-
-        val cartListRequest = ProductListRequest()
-
-        cartListRequest.userId = userId
-        cartListRequest.authToken = authToken
-
-        apiViewModel.cartList(cartListRequest)
-        getCartAPI()
-
-    }
-
-    private fun getCartAPI() {
-        apiViewModel.res_cart_list.observe(this) {
-
-            when(it.status) {
-
-                Status.SUCCESS -> {
-
-                    val totalItems = it.data?.parameters?.data?.size.toString()
-
-                   binding.totalCartItems.text = totalItems
-
-                }
-
-                Status.LOADING -> {
-
-                }
-
-                Status.ERROR -> {
-                }
-            }
+        if (true) {
+            val intent = Intent(Intent.ACTION_MAIN)
+            intent.addCategory(Intent.CATEGORY_HOME)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
         }
+        else
+        {
+            super.onBackPressed()
+        }
+
     }
+
 
 }
